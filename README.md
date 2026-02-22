@@ -20,12 +20,10 @@ These resources are published here to:
 ### Important – Copyright Notice
 
 **All rights to the original book, its content, selection of terms, and page references belong exclusively to the authors (Irwin Miller & Marylees Miller) and publisher (Pearson © 2019).**  
- 
-There is no substantive text, explanations, examples, proofs, figures, or exercises are included.
 
-There is no commercial offer.
-
-This is not a replacement for any textbook — anyone needing the full content should purchase or access the publisher's edition (Pearson).
+This repository contains **only the index** reformatted and (in one case) translated for educational/personal use.  
+No substantive text, explanations, examples, proofs, figures, or exercises are included.  
+There is no commercial intent. This is not a replacement for any textbook — anyone needing the full content should purchase or access the publisher's edition (Pearson).
 
 The lexicon definitions are independent and general — they are not excerpts or derivations from the book.
 
@@ -45,9 +43,8 @@ Live site: https://engineerid.github.io/Statistics/
 
 ### License for my contributions
 
-My original contributions (HTML structure, error correction, Serbian translation, formatting decisions, lexicon definitions) are released under the **Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)** (see [LICENSE](LICENSE) file).
-
-Externally reference content, such as the index listed, remains copyrighted with publisher, Pearson, and the authors.
+My original contributions (HTML structure, error correction, Serbian translation, formatting decisions, lexicon definitions) are released under the **Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)** (see [LICENSE](LICENSE) file).  
+The underlying index content and page numbers remain fully copyrighted by Pearson and the authors.
 
 ### Why GitHub?
 
@@ -57,7 +54,7 @@ If you find this useful, consider buying the original textbook — it's an excel
 
 Questions or suggestions? Feel free to open an issue.
 
-Much respect to the original work this is built on.  
+Made with respect for the original work.  
 
 **Ivan Damnjanovic** – Belgrade, Serbia
 https://ivandamnjanovic.com/
