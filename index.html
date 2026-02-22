@@ -6,76 +6,30 @@
     <meta name="description" content="A general statistics reference with an independent lexicon and bilingual indexes.">
     <title>Statistics Reference & Lexicon</title>
     <style>
-        :root{--accent:#0b66c3;--muted:#6b7280;--bg:#f7fafc;--card:#ffffff}
-        html,body{height:100%;}
-        body{
-            margin:0; font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-            background:var(--bg); color:#0f172a; -webkit-font-smoothing:antialiased;
-            display:flex; align-items:center; justify-content:center; padding:32px;
+        body { 
+            font-family: sans-serif; text-align: center; padding: 50px; max-width: 800px; margin: 0 auto; 
         }
-        .wrap{width:100%;max-width:980px;background:linear-gradient(180deg,rgba(255,255,255,0.6),rgba(255,255,255,1));box-shadow:0 6px 24px rgba(15,23,42,0.06);border-radius:12px;padding:28px}
-        header{display:flex;align-items:center;justify-content:space-between;gap:16px}
-        .title{flex:1}
-        h1{margin:0;font-size:1.4rem}
-        p.lead{margin:8px 0 0;color:var(--muted)}
-        nav{margin-top:20px;display:flex;gap:12px;flex-wrap:wrap}
-        .btn{background:var(--card);border:1px solid #e6eef8;border-radius:10px;padding:12px 16px;color:var(--accent);text-decoration:none;font-weight:600;box-shadow:0 1px 0 rgba(11,102,195,0.06)}
-        .btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(11,102,195,0.08)}
-        main{margin-top:22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
-        .card{background:var(--card);border-radius:10px;padding:18px;border:1px solid #eef3fb;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;display:block;color:inherit;text-decoration:none}
-        .card h3{margin:0 0 8px;font-size:1rem}
-        .card p{margin:0;color:var(--muted);font-size:0.95rem}
-        .card:hover,.card:focus,.card:focus-within{transform:translateY(-6px);box-shadow:0 12px 30px rgba(11,102,195,0.12);border-color:rgba(11,102,195,0.12)}
-        .card:focus-visible{outline:3px solid rgba(11,102,195,0.12);outline-offset:6px}
-        footer{margin-top:22px;color:var(--muted);font-size:0.9rem;text-align:center}
-        a.small{color:var(--muted);text-decoration:none}
-        @media (max-width:560px){body{padding:18px}.wrap{padding:18px}h1{font-size:1.15rem}}
+        h1 { margin-bottom: 0.5em; }
+        p { margin: 1em 0; }
+        a { color: #0066cc; text-decoration: none; font-weight: bold; }
+        a:hover { text-decoration: underline; }
+        footer { margin-top: 80px; color: #666; font-size: 0.9em; }
+        .note { font-style: italic; color: #666; font-size: 0.9em; margin: 1.5em 0; }
     </style>
 </head>
 <body>
-    <div class="wrap">
-        <header>
-            <div class="title">
-                <h1>Statistics Reference & Lexicon</h1>
-                <p class="lead">A compact, browsable set of references — a standalone lexicon and bilingual indexes adapted for study.</p>
-            </div>
-            <div style="text-align:right">
-                <nav aria-label="Primary">
-                    <a class="btn" href="lexicon.html">📘 Lexicon</a>
-                </nav>
-            </div>
-        </header>
-
-        <main>
-              <a class="card" href="lexicon.html" aria-label="Open Statistics Lexicon">
-                        <h3>📘 Statistics Lexicon</h3>
-                        <p>General definitions and short explanations of statistical terms — standalone and broadly applicable.</p>
-                        <p style="margin-top:10px"><span class="small">Open the lexicon →</span></p>
-                    </a>
-
-            <a class="card" href="english-index.html" aria-label="Open English Index">
-                <h3>🔤 English Index</h3>
-                <p>Reformatted index entries in English adapted from the textbook's index for easier browsing.</p>
-                <p style="margin-top:10px"><span class="small">Open English index →</span></p>
-            </a>
-
-            <a class="card" href="serbian-index.html" aria-label="Open Serbian Index">
-                <h3>🇷🇸 Serbian Index</h3>
-                <p>Translated index entries in Serbian to support bilingual reference and study.</p>
-                <p style="margin-top:10px"><span class="small">Open Serbian index →</span></p>
-            </a>
-
-            <a class="card" href="README.md" aria-label="Open Project Info (README)">
-                <h3>📄 Project Info</h3>
-                <p>Project README containing repository details, usage notes, and license information.</p>
-                <p style="margin-top:10px"><span class="small">Open project README →</span></p>
-            </a>
-        </main>
-
-        <footer>
-            Edited excerpts for educational use. Original textbook rights belong to the authors and publisher.<br>
-            Created by Ivan Damnjanovic — <a class="small" href="https://ivandamnjanovic.com/">ivandamnjanovic.com</a>
-        </footer>
-    </div>
+    <h1>Statistics Reference & Lexicon</h1>
+    <p>A general resource for statistics terms and concepts, including an independent lexicon and bilingual indexes reformatted from a popular textbook.</p>
+    <p class="note">
+        The lexicon provides general definitions not tied to any specific source. The indexes are derived from John E. Freund's Mathematical Statistics with Applications (8th ed., Miller & Miller, Pearson © 2019). All rights reserved by authors and publisher.
+    </p>
+    <br>
+    <a href="lexicon.html">Statistics Lexicon (standalone general definitions)</a><br><br>
+    <a href="indexes/english-index.html">English Index (reformatted from the book)</a><br><br>
+    <a href="indexes/serbian-index.html">Serbian Index (translated from the book)</a>
+    <footer>
+        Created by Ivan Damnjanovic for educational purposes.<br>
+        © 2026 <a href="https://ivandamnjanovic.com/">ivandamnjanovic.com</a><br>
+    </footer>
 </body>
 </html>
