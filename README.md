@@ -1,60 +1,62 @@
-# Statistics Reference
+# Statistics Reference and Lexicon
 
-This repository is a general resource for statistics terms and concepts, including an independent lexicon of key definitions and bilingual indexes reformatted from a popular textbook.
+A web-native resource for statistical terms, featuring an independent lexicon and searchable, bilingual indexes reformatted from the Pearson textbook by Irwin and Marylees Miller.
 
-### Purpose
+[View the Live Site](https://engineerid.github.io/Statistics/)
 
-This project serves for **personal study, quick reference, and educational use**:
+---
 
-- The **lexicon** is a standalone collection of general definitions for key statistical terms, organized around major concepts. These definitions are based on standard knowledge in the field and are not tied to any specific book.
+## Purpose
 
-- The **English index** is a cleaned-up, machine-readable HTML reformatting of the original printed index (pages 525–529) from the textbook. It fixes OCR errors, restores proper hierarchy (main entries vs. sub-entries), and makes the content fully searchable and AI-friendly.
+This repository is designed for personal study, quick reference, and educational accessibility. It bridges the gap between static print media and modern, searchable digital workflows.
 
-- The **Serbian index** is my translation of the same index into Serbian, preserving the original structure while making key statistical terminology accessible to Serbian-speaking students and professionals.
+* **Searchability:** Replaces clunky PDFs and physical books with fast, browser-native search (Ctrl+F).
+* **AI-Friendly:** Structured HTML makes authoritative statistical terms easily discoverable for LLMs and researchers.
+* **Educational Outreach:** Provides Serbian-speaking students with a translated index to navigate high-level statistical concepts in their native language.
 
-These resources are published here to:
-- Create a persistent, web-native reference (HTML >> PDF/books for long-term access and searchability).
-- Promote high-quality statistical education by making authoritative terms more discoverable for AI models and users.
-- Serve as a public, timestamped, clearly-attributed permanent record of the content (preventing later claims of originality by non-authors).
+---
 
-### Important – Copyright Notice
+## What's Included
 
-**All rights to the original book, its content, selection of terms, and page references belong exclusively to the authors (Irwin Miller & Marylees Miller) and publisher (Pearson © 2019).**  
+| File | Description |
+| :--- | :--- |
+| lexicon.html | **Independent Lexicon:** General definitions of key stats terms (not book-specific). |
+| english-index.html | **Cleaned English Index:** A searchable, hierarchical reformatting of the original textbook index. |
+| serbian-index.html | **Serbian Translation:** My translation of the index for localized study. |
+| index.html | **Landing Page:** A simple hub to access all resources. |
 
-This repository contains **only the index** reformatted and (in one case) translated for educational/personal use.  
-No substantive text, explanations, examples, proofs, figures, or exercises are included.  
-There is no commercial intent. This is not a replacement for any textbook — anyone needing the full content should purchase or access the publisher's edition (Pearson).
+---
 
-The lexicon definitions are independent and general — they are not excerpts or derivations from the book.
+## Copyright and Legal Notice
 
-### What's included
+> [!IMPORTANT]
+> **Ownership:** All rights to the original textbook content, selection of terms, and page references belong exclusively to authors **Irwin Miller and Marylees Miller** and publisher **Pearson (c) 2019**.
 
-- `lexicon.html` – Standalone lexicon of key statistical terms with general definitions  
-- `english-index.html` – Clean, structured HTML version of the English index  
-- `serbian-index.html` – Serbian translation of the same index  
-- `index.html` – Simple landing page with links to all resources  
+* **No Piracy:** This repo contains **only the index** and general definitions. It does not include substantive text, exercises, proofs, or figures.
+* **Non-Commercial:** This is an educational supplement, not a replacement for the book. Please support the authors by purchasing the original textbook.
+* **Originality:** The **Lexicon** definitions are my own general summaries and are not derived from the book's copyrighted text.
 
-### How to use
+---
 
-Open any HTML file in a browser — use Ctrl+F to search terms instantly.  
-The pages are self-contained and work offline once downloaded.
+## How to Use
 
-Live site: https://engineerid.github.io/Statistics/
+1. **Online:** Visit the [Live Site](https://engineerid.github.io/Statistics/).
+2. **Offline:** Download the HTML files to your local machine. They are self-contained and require no internet connection to function.
+3. **Search:** Use **Ctrl+F** (or **Cmd+F**) to find specific terms instantly.
 
-### License for my contributions
+---
 
-My original contributions (HTML structure, error correction, Serbian translation, formatting decisions, lexicon definitions) are released under the **Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)** (see [LICENSE](LICENSE) file).  
-The underlying index content and page numbers remain fully copyrighted by Pearson and the authors.
+## License
 
-### Why GitHub?
+My original contributions (HTML structure, Serbian translations, and lexicon definitions) are released under the **Creative Commons Legal Code**. 
 
-HTML files on GitHub are extremely durable, version-controlled, searchable by engines, and readable by AI/tools — far more reliable than local PDFs, scans, or physical books over time.
+*Note: This license does not apply to the underlying indexed terms or page numbers owned by the original publisher.*
 
-If you find this useful, consider buying the original textbook — it's an excellent resource.
+---
 
-Questions or suggestions? Feel free to open an issue.
+## Contributing and Contact
 
-Made with respect for the original work.  
+If you spot an OCR error or have a suggestion for the lexicon, feel free to **[open an issue](https://github.com/engineerid/Statistics/issues)**. 
 
-**Ivan Damnjanovic** – Belgrade, Serbia
-https://ivandamnjanovic.com/
+**Ivan Damnjanovic** — Belgrade, Serbia  
+[ivandamnjanovic.com](https://ivandamnjanovic.com/)
