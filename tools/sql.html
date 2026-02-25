@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Syntax Reference</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+            background-color: #f4f7f9;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: #2c3e50;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .navbar a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95em;
+            transition: color 0.2s ease;
+        }
+        .navbar a:hover {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        code {
+            background-color: #f8f8f8;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: "Courier New", Courier, monospace;
+            color: #d63384;
+            display: block;
+            white-space: pre-wrap;
+        }
+        .desc {
+            font-size: 0.95em;
+        }
+        .sql-keyword {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="nav-placeholder"></div>
+
+    <h1>SQL Syntax Reference</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>SQL Command</th>
+                <th>Syntax</th>
+                <th>Example</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="sql-keyword">AND / OR</td>
+                <td><code>SELECT col<br>FROM table<br>WHERE cond1<br>AND|OR cond2;</code></td>
+                <td><code>SELECT * FROM employees<br>WHERE department = 'Sales'<br>AND salary > 50000;</code></td>
+                <td class="desc">Used to filter records based on more than one condition.</td>
+            </tr>
+            <tr>
+                <td class="sql-keyword">ANY / ALL</td>
+                <td><code>SELECT col<br>FROM table<br>WHERE col operator ANY|ALL<br>(subquery);</code></td>
+                <td><code>SELECT name FROM products<br>WHERE price > ANY<br>(SELECT price FROM orders WHERE quantity > 10);</code></td>
+                <td class="desc">"ANY" returns true if any subquery values meet the condition; "ALL" requires all to meet it.</td>
+            </tr>
+            <tr>
+                <td class="sql-keyword">ALTER TABLE</td>
+                <td><code>ALTER TABLE table<br>ADD|DROP|ALTER COLUMN col datatype;</code></td>
+                <td><code>ALTER TABLE customers<br>ADD email_address VARCHAR(255);</code></td>
+                <td class="desc">Adds, deletes, or modifies columns in an existing table.</td>
+            </tr>
+            <tr>
+                <td class="sql-keyword">AS (Aliases)</td>
+                <td><code>SELECT col AS alias<br>FROM table;</code></td>
+                <td><code>SELECT employee_name AS "Staff Name"<br>FROM employees;</code></td>
+                <td class="desc">Gives columns or tables a temporary name for readability.</td>
+            </tr>
+            <tr>
+                <td class="sql-keyword">AVG()</td>
+                <td><code>SELECT AVG(col)<br>FROM table;</code></td>
+                <td><code>SELECT AVG(unit_price)<br>FROM inventory;</code></td>
+                <td class="desc">Returns the average value of a numeric column.</td>
+            </tr>
+            <tr>
+                <td class="sql-keyword">BETWEEN</td>
+                <td><code>WHERE col<br>BETWEEN v1 AND v2;</code></td>
+                <td><code>SELECT * FROM orders<br>WHERE order_date<br>BETWEEN '2024-01-01' AND '2024-03-31';</code></td>
+                <td class="desc">Filters values within a given range (inclusive).</td>
+            </tr>
+            <tr>
+                <td class="sql-keyword">CASE</td>
+                <td><code>CASE<br>&nbsp;&nbsp;WHEN cond1 THEN res1<br>&nbsp;&nbsp;ELSE resN<br>END;</code></td>
+                <td><code>SELECT product_name,<br>CASE WHEN stock < 10 THEN 'Low Stock'<br>ELSE 'In Stock'<br>END AS "Status"<br>FROM warehouse;</code></td>
+                <td class="desc">Handles conditional logic (IF-THEN-ELSE).</td>
+            </tr>
+            <tr>
+                <td class="sql-keyword">CONCAT</td>
+                <td><code>CONCAT(s1, s2, ...);</code></td>
+                <td><code>SELECT CONCAT(first_name, ' ', last_name) AS "Full Name"<br>FROM employees;</code></td>
+                <td class="desc">Joins multiple strings into one.</td>
+            </tr>
+            <tr>
+                <td class="sql-keyword">COUNT</td>
+                <td><code>SELECT COUNT(col) FROM table;</code></td>
+                <td><code>SELECT COUNT(customer_id) FROM orders;</code></td>
+                <td class="desc">Returns the number of rows matching the criteria.</td>
+            </tr>
+            <tr>
+                <td class="sql-keyword">CREATE TABLE</td>
+                <td><code>CREATE TABLE table (<br>&nbsp;&nbsp;col1 data_type,<br>&nbsp;&nbsp;col2 data_type<br>);</code></td>
+                <td><code>CREATE TABLE inventory (<br>&nbsp;&nbsp;item_id INT,<br>&nbsp;&nbsp;item_name VARCHAR(100)<br>);</code></td>
+                <td class="desc">Creates a new table in the database.</td>
+            </tr>
+            <tr>
+                <td class="sql-keyword">DELETE</td>
+                <td><code>DELETE FROM table<br>WHERE condition;</code></td>
+                <td><code>DELETE FROM customers<br>WHERE last_login < '2020-01-01';</code></td>
+                <td class="desc">Deletes specific rows. Caution: Omitting WHERE deletes all data.</td>
+            </tr>
+            <tr>
+                <td class="sql-keyword">EXTRACT</td>
+                <td><code>SELECT EXTRACT(part FROM col);</code></td>
+                <td><code>SELECT EXTRACT(month FROM hire_date) AS "Hire Month"<br>FROM employees;</code></td>
+                <td class="desc">Extracts a portion of a date (Year, Month, Day, etc.).</td>
+            </tr>
+            <tr>
+                <td class="sql-keyword">GROUP BY</td>
+                <td><code>SELECT col, aggregate(col)<br>FROM table<br>GROUP BY col;</code></td>
+                <td><code>SELECT region, SUM(sales_total)<br>FROM store_data GROUP BY region;</code></td>
+                <td class="desc">Groups rows sharing the same values into summary rows.</td>
+            </tr>
+            <tr>
+                <td class="sql-keyword">HAVING</td>
+                <td><code>SELECT col FROM table<br>GROUP BY col<br>HAVING condition;</code></td>
+                <td><code>SELECT category, COUNT(*)<br>FROM products GROUP BY category<br>HAVING COUNT(*) > 20;</code></td>
+                <td class="desc">Filters groups (used instead of WHERE for aggregates).</td>
+            </tr>
+            <tr>
+                <td class="sql-keyword">JOINS</td>
+                <td><code>SELECT * FROM T1<br>JOIN T2 ON T1.id = T2.id;</code></td>
+                <td><code>SELECT orders.id, customers.name<br>FROM orders<br>INNER JOIN customers ON orders.cust_id = customers.id;</code></td>
+                <td class="desc">Combines rows from tables based on a related column.</td>
+            </tr>
+            <tr>
+                <td class="sql-keyword">LIKE / ILIKE</td>
+                <td><code>WHERE col LIKE 'pattern';</code></td>
+                <td><code>WHERE email LIKE '%@gmail.com';</code></td>
+                <td class="desc">Pattern matching. % is a wildcard. ILIKE is case-insensitive.</td>
+            </tr>
+            <tr>
+                <td class="sql-keyword">MAX() / MIN()</td>
+                <td><code>SELECT MAX|MIN(col) FROM table;</code></td>
+                <td><code>SELECT MAX(salary) FROM employees;</code></td>
+                <td class="desc">Returns the largest or smallest value.</td>
+            </tr>
+            <tr>
+                <td class="sql-keyword">SELECT TOP / LIMIT</td>
+                <td><code>SELECT TOP (n) | LIMIT n;</code></td>
+                <td><code>SELECT * FROM sales_logs<br>ORDER BY date DESC LIMIT 10;</code></td>
+                <td class="desc">Restricts the number of rows returned.</td>
+            </tr>
+            <tr>
+                <td class="sql-keyword">UPDATE</td>
+                <td><code>UPDATE table<br>SET col = val<br>WHERE condition;</code></td>
+                <td><code>UPDATE products SET price = 19.99<br>WHERE sku = 'A100';</code></td>
+                <td class="desc">Modifies existing records in a table.</td>
+            </tr>
+            <tr>
+                <td class="sql-keyword">Math (+, -, *, /)</td>
+                <td><code>SELECT col1 * col2;</code></td>
+                <td><code>SELECT (price * quantity) AS "Total Revenue"<br>FROM order_items;</code></td>
+                <td class="desc">Performs calculations on numeric data.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script src="../navbar.js"></script>
+
+</body>
+</html>

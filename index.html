@@ -3,33 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A general statistics reference with an independent lexicon and bilingual indexes.">
-    <title>Statistics Reference & Lexicon</title>
+    <meta name="description" content="A comprehensive reference for statistics and data manipulation, featuring an independent lexicon, SQL guide, and bilingual indexes.">
+    <title>Statistics & SQL Reference</title>
     <style>
         body { 
-            font-family: sans-serif; text-align: center; padding: 50px; max-width: 800px; margin: 0 auto; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            text-align: center; 
+            padding: 20px; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            line-height: 1.6;
+            background-color: #fdfdfd;
+            color: #333;
         }
-        h1 { margin-bottom: 0.5em; }
+        
+        /* Navbar Styles - Keep these here so the bar looks correct immediately */
+        .navbar {
+            background-color: #2c3e50;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .navbar a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95em;
+            transition: color 0.2s ease;
+        }
+        .navbar a:hover {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        h1 { margin-bottom: 0.2em; color: #2c3e50; }
+        h2 { font-size: 1.2em; margin-top: 2em; border-bottom: 1px solid #eee; padding-bottom: 5px; color: #555; }
         p { margin: 1em 0; }
-        a { color: #0066cc; text-decoration: none; font-weight: bold; }
-        a:hover { text-decoration: underline; }
-        footer { margin-top: 80px; color: #666; font-size: 0.9em; }
-        .note { font-style: italic; color: #666; font-size: 0.9em; margin: 1.5em 0; }
+        .links-container { margin-top: 20px; }
+        .links-container a { color: #0066cc; text-decoration: none; font-weight: bold; }
+        .links-container a:hover { text-decoration: underline; }
+        footer { margin-top: 80px; color: #666; font-size: 0.9em; border-top: 1px solid #eee; padding-top: 20px; }
+        .note { font-style: italic; color: #777; font-size: 0.9em; margin: 1.5em auto; max-width: 600px; }
     </style>
 </head>
 <body>
-    <h1>Statistics Reference & Lexicon</h1>
-    <p>A general resource for statistics terms and concepts, including an independent lexicon and bilingual indexes reformatted from a popular textbook.</p>
-    <p class="note">
-        The lexicon provides general definitions not tied to any specific source. The indexes are derived from John E. Freund's Mathematical Statistics with Applications (8th ed., Miller & Miller, Pearson © 2019). All rights reserved by authors and publisher.
-    </p>
-    <br>
-    <a href="lexicon.html">Statistics Lexicon (standalone general definitions)</a><br><br>
-    <a href="indexes/english-index.html">English Index (reformatted from the book)</a><br><br>
-    <a href="indexes/serbian-index.html">Serbian Index (translated from the book)</a>
+
+    <div id="nav-placeholder"></div>
+
+    <h1>Statistics & SQL Reference</h1>
+    <p>A digital toolkit for statistics and data retrieval, providing a bridge between theoretical concepts and practical data manipulation.</p>
+
+    <div class="links-container">
+        <h2>Independent Guides</h2>
+        <a href="lexicon.html">Statistics Lexicon (General Definitions)</a><br><br>
+        <a href="tools/sql.html">SQL Syntax Reference</a><br><br>
+        <a href="tools/python.html">Python Data Tools (Coming Soon)</a><br><br>
+        <a href="tools/R.html">R Stats Tools (Coming Soon)</a>
+
+        <p class="note">
+        These guides are independent work and not tied to any specific material.
+        </p>
+
+        <h2>Textbook Indexes</h2>
+        <a href="indexes/english-index.html">English Index (Searchable Reformat)</a><br><br>
+        <a href="indexes/serbian-index.html">Serbian Index (Bilingual Translation)</a>
+        
+        <p class="note">
+            The indexes are derived from <strong>John E. Freund's Mathematical Statistics with Applications</strong> (8th ed., Miller & Miller, Pearson © 2019). All rights reserved by the authors and publisher.
+        </p>
+    </div>
+
     <footer>
         Created by Ivan Damnjanovic for educational purposes.<br>
         © 2026 <a href="https://ivandamnjanovic.com/">ivandamnjanovic.com</a><br>
     </footer>
+
+    <script src="navbar.js"></script>
 </body>
 </html>
