@@ -45,6 +45,11 @@
             border-bottom: 2px solid #3498db;
             padding-bottom: 10px;
         }
+        h2 {
+            color: #2c3e50;
+            border-bottom: 1px solid #3498db;
+            padding-bottom: 8px;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -89,137 +94,292 @@
 
     <div id="nav-placeholder"></div>
 
-    <h1>SQL Statistics Reference with Examples</h1>
+    <h1>SQL Syntax Reference</h1>
 
+    <nav class="navbar">
+        <a href="#basic-querying">Basic Querying</a>
+        <a href="#filtering">Filtering</a>
+        <a href="#conditional">Conditional Logic</a>
+        <a href="#string-functions">String Functions</a>
+        <a href="#date-functions">Date Functions</a>
+        <a href="#aggregation">Aggregation</a>
+        <a href="#grouping">Grouping</a>
+        <a href="#joins">Joins</a>
+        <a href="#math">Math Operations</a>
+        <a href="#ddl">Data Definition (DDL)</a>
+        <a href="#dml">Data Manipulation (DML)</a>
+    </nav>
+
+    <h2 id="basic-querying">Basic Querying</h2>
     <table>
         <thead>
             <tr>
-                <th>SQL Command</th>
+                <th>Command</th>
+                <th>Description</th>
                 <th>Syntax</th>
                 <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="sql-keyword">AS (Aliases)</td>
+                <td class="desc">Gives columns or tables a temporary name for readability.</td>
+                <td><code>SELECT col AS alias<br>FROM table;</code></td>
+                <td><code>SELECT employee_name AS "Staff Name"<br>FROM employees;</code></td>
+            </tr>
+            <tr>
+                <td class="sql-keyword">SELECT TOP / LIMIT</td>
+                <td class="desc">Restricts the number of rows returned.</td>
+                <td><code>SELECT TOP (n) | LIMIT n;</code></td>
+                <td><code>SELECT * FROM sales_logs<br>ORDER BY date DESC LIMIT 10;</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 id="filtering">Filtering</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Command</th>
                 <th>Description</th>
+                <th>Syntax</th>
+                <th>Example</th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <td class="sql-keyword">AND / OR</td>
+                <td class="desc">Used to filter records based on more than one condition.</td>
                 <td><code>SELECT col<br>FROM table<br>WHERE cond1<br>AND|OR cond2;</code></td>
                 <td><code>SELECT * FROM employees<br>WHERE department = 'Sales'<br>AND salary > 50000;</code></td>
-                <td class="desc">Used to filter records based on more than one condition.</td>
-            </tr>
-            <tr>
-                <td class="sql-keyword">ANY / ALL</td>
-                <td><code>SELECT col<br>FROM table<br>WHERE col operator ANY|ALL<br>(subquery);</code></td>
-                <td><code>SELECT name FROM products<br>WHERE price > ANY<br>(SELECT price FROM orders WHERE quantity > 10);</code></td>
-                <td class="desc">"ANY" returns true if any subquery values meet the condition; "ALL" requires all to meet it.</td>
-            </tr>
-            <tr>
-                <td class="sql-keyword">ALTER TABLE</td>
-                <td><code>ALTER TABLE table<br>ADD|DROP|ALTER COLUMN col datatype;</code></td>
-                <td><code>ALTER TABLE customers<br>ADD email_address VARCHAR(255);</code></td>
-                <td class="desc">Adds, deletes, or modifies columns in an existing table.</td>
-            </tr>
-            <tr>
-                <td class="sql-keyword">AS (Aliases)</td>
-                <td><code>SELECT col AS alias<br>FROM table;</code></td>
-                <td><code>SELECT employee_name AS "Staff Name"<br>FROM employees;</code></td>
-                <td class="desc">Gives columns or tables a temporary name for readability.</td>
-            </tr>
-            <tr>
-                <td class="sql-keyword">AVG()</td>
-                <td><code>SELECT AVG(col)<br>FROM table;</code></td>
-                <td><code>SELECT AVG(unit_price)<br>FROM inventory;</code></td>
-                <td class="desc">Returns the average value of a numeric column.</td>
             </tr>
             <tr>
                 <td class="sql-keyword">BETWEEN</td>
+                <td class="desc">Filters values within a given range (inclusive).</td>
                 <td><code>WHERE col<br>BETWEEN v1 AND v2;</code></td>
                 <td><code>SELECT * FROM orders<br>WHERE order_date<br>BETWEEN '2024-01-01' AND '2024-03-31';</code></td>
-                <td class="desc">Filters values within a given range (inclusive).</td>
-            </tr>
-            <tr>
-                <td class="sql-keyword">CASE</td>
-                <td><code>CASE<br>&nbsp;&nbsp;WHEN cond1 THEN res1<br>&nbsp;&nbsp;ELSE resN<br>END;</code></td>
-                <td><code>SELECT product_name,<br>CASE WHEN stock < 10 THEN 'Low Stock'<br>ELSE 'In Stock'<br>END AS "Status"<br>FROM warehouse;</code></td>
-                <td class="desc">Handles conditional logic (IF-THEN-ELSE).</td>
-            </tr>
-            <tr>
-                <td class="sql-keyword">CONCAT</td>
-                <td><code>CONCAT(s1, s2, ...);</code></td>
-                <td><code>SELECT CONCAT(first_name, ' ', last_name) AS "Full Name"<br>FROM employees;</code></td>
-                <td class="desc">Joins multiple strings into one.</td>
-            </tr>
-            <tr>
-                <td class="sql-keyword">COUNT</td>
-                <td><code>SELECT COUNT(col) FROM table;</code></td>
-                <td><code>SELECT COUNT(customer_id) FROM orders;</code></td>
-                <td class="desc">Returns the number of rows matching the criteria.</td>
-            </tr>
-            <tr>
-                <td class="sql-keyword">CREATE TABLE</td>
-                <td><code>CREATE TABLE table (<br>&nbsp;&nbsp;col1 data_type,<br>&nbsp;&nbsp;col2 data_type<br>);</code></td>
-                <td><code>CREATE TABLE inventory (<br>&nbsp;&nbsp;item_id INT,<br>&nbsp;&nbsp;item_name VARCHAR(100)<br>);</code></td>
-                <td class="desc">Creates a new table in the database.</td>
-            </tr>
-            <tr>
-                <td class="sql-keyword">DELETE</td>
-                <td><code>DELETE FROM table<br>WHERE condition;</code></td>
-                <td><code>DELETE FROM customers<br>WHERE last_login < '2020-01-01';</code></td>
-                <td class="desc">Deletes specific rows. Caution: Omitting WHERE deletes all data.</td>
-            </tr>
-            <tr>
-                <td class="sql-keyword">EXTRACT</td>
-                <td><code>SELECT EXTRACT(part FROM col);</code></td>
-                <td><code>SELECT EXTRACT(month FROM hire_date) AS "Hire Month"<br>FROM employees;</code></td>
-                <td class="desc">Extracts a portion of a date (Year, Month, Day, etc.).</td>
-            </tr>
-            <tr>
-                <td class="sql-keyword">GROUP BY</td>
-                <td><code>SELECT col, aggregate(col)<br>FROM table<br>GROUP BY col;</code></td>
-                <td><code>SELECT region, SUM(sales_total)<br>FROM store_data GROUP BY region;</code></td>
-                <td class="desc">Groups rows sharing the same values into summary rows.</td>
-            </tr>
-            <tr>
-                <td class="sql-keyword">HAVING</td>
-                <td><code>SELECT col FROM table<br>GROUP BY col<br>HAVING condition;</code></td>
-                <td><code>SELECT category, COUNT(*)<br>FROM products GROUP BY category<br>HAVING COUNT(*) > 20;</code></td>
-                <td class="desc">Filters groups (used instead of WHERE for aggregates).</td>
-            </tr>
-            <tr>
-                <td class="sql-keyword">JOINS</td>
-                <td><code>SELECT * FROM T1<br>JOIN T2 ON T1.id = T2.id;</code></td>
-                <td><code>SELECT orders.id, customers.name<br>FROM orders<br>INNER JOIN customers ON orders.cust_id = customers.id;</code></td>
-                <td class="desc">Combines rows from tables based on a related column.</td>
             </tr>
             <tr>
                 <td class="sql-keyword">LIKE / ILIKE</td>
+                <td class="desc">Pattern matching. % is a wildcard. ILIKE is case-insensitive.</td>
                 <td><code>WHERE col LIKE 'pattern';</code></td>
                 <td><code>WHERE email LIKE '%@gmail.com';</code></td>
-                <td class="desc">Pattern matching. % is a wildcard. ILIKE is case-insensitive.</td>
+            </tr>
+            <tr>
+                <td class="sql-keyword">ANY / ALL</td>
+                <td class="desc">"ANY" returns true if any subquery values meet the condition; "ALL" requires all to meet it.</td>
+                <td><code>SELECT col<br>FROM table<br>WHERE col operator ANY|ALL<br>(subquery);</code></td>
+                <td><code>SELECT name FROM products<br>WHERE price > ANY<br>(SELECT price FROM orders WHERE quantity > 10);</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 id="conditional">Conditional Logic</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Command</th>
+                <th>Description</th>
+                <th>Syntax</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="sql-keyword">CASE</td>
+                <td class="desc">Handles conditional logic (IF-THEN-ELSE).</td>
+                <td><code>CASE<br>&nbsp;&nbsp;WHEN cond1 THEN res1<br>&nbsp;&nbsp;ELSE resN<br>END;</code></td>
+                <td><code>SELECT product_name,<br>CASE WHEN stock < 10 THEN 'Low Stock'<br>ELSE 'In Stock'<br>END AS "Status"<br>FROM warehouse;</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 id="string-functions">String Functions</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Command</th>
+                <th>Description</th>
+                <th>Syntax</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="sql-keyword">CONCAT</td>
+                <td class="desc">Joins multiple strings into one.</td>
+                <td><code>CONCAT(s1, s2, ...);</code></td>
+                <td><code>SELECT CONCAT(first_name, ' ', last_name) AS "Full Name"<br>FROM employees;</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 id="date-functions">Date Functions</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Command</th>
+                <th>Description</th>
+                <th>Syntax</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="sql-keyword">EXTRACT</td>
+                <td class="desc">Extracts a portion of a date (Year, Month, Day, etc.).</td>
+                <td><code>SELECT EXTRACT(part FROM col);</code></td>
+                <td><code>SELECT EXTRACT(month FROM hire_date) AS "Hire Month"<br>FROM employees;</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 id="aggregation">Aggregation</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Command</th>
+                <th>Description</th>
+                <th>Syntax</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="sql-keyword">AVG()</td>
+                <td class="desc">Returns the average value of a numeric column.</td>
+                <td><code>SELECT AVG(col)<br>FROM table;</code></td>
+                <td><code>SELECT AVG(unit_price)<br>FROM inventory;</code></td>
+            </tr>
+            <tr>
+                <td class="sql-keyword">COUNT</td>
+                <td class="desc">Returns the number of rows matching the criteria.</td>
+                <td><code>SELECT COUNT(col) FROM table;</code></td>
+                <td><code>SELECT COUNT(customer_id) FROM orders;</code></td>
             </tr>
             <tr>
                 <td class="sql-keyword">MAX() / MIN()</td>
+                <td class="desc">Returns the largest or smallest value.</td>
                 <td><code>SELECT MAX|MIN(col) FROM table;</code></td>
                 <td><code>SELECT MAX(salary) FROM employees;</code></td>
-                <td class="desc">Returns the largest or smallest value.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 id="grouping">Grouping</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Command</th>
+                <th>Description</th>
+                <th>Syntax</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="sql-keyword">GROUP BY</td>
+                <td class="desc">Groups rows sharing the same values into summary rows.</td>
+                <td><code>SELECT col, aggregate(col)<br>FROM table<br>GROUP BY col;</code></td>
+                <td><code>SELECT region, SUM(sales_total)<br>FROM store_data GROUP BY region;</code></td>
             </tr>
             <tr>
-                <td class="sql-keyword">SELECT TOP / LIMIT</td>
-                <td><code>SELECT TOP (n) | LIMIT n;</code></td>
-                <td><code>SELECT * FROM sales_logs<br>ORDER BY date DESC LIMIT 10;</code></td>
-                <td class="desc">Restricts the number of rows returned.</td>
+                <td class="sql-keyword">HAVING</td>
+                <td class="desc">Filters groups (used instead of WHERE for aggregates).</td>
+                <td><code>SELECT col FROM table<br>GROUP BY col<br>HAVING condition;</code></td>
+                <td><code>SELECT category, COUNT(*)<br>FROM products GROUP BY category<br>HAVING COUNT(*) > 20;</code></td>
             </tr>
+        </tbody>
+    </table>
+
+    <h2 id="joins">Joins</h2>
+    <table>
+        <thead>
             <tr>
-                <td class="sql-keyword">UPDATE</td>
-                <td><code>UPDATE table<br>SET col = val<br>WHERE condition;</code></td>
-                <td><code>UPDATE products SET price = 19.99<br>WHERE sku = 'A100';</code></td>
-                <td class="desc">Modifies existing records in a table.</td>
+                <th>Command</th>
+                <th>Description</th>
+                <th>Syntax</th>
+                <th>Example</th>
             </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="sql-keyword">JOINS</td>
+                <td class="desc">Combines rows from tables based on a related column.</td>
+                <td><code>SELECT * FROM T1<br>JOIN T2 ON T1.id = T2.id;</code></td>
+                <td><code>SELECT orders.id, customers.name<br>FROM orders<br>INNER JOIN customers ON orders.cust_id = customers.id;</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 id="math">Math Operations</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Command</th>
+                <th>Description</th>
+                <th>Syntax</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
             <tr>
                 <td class="sql-keyword">Math (+, -, *, /)</td>
+                <td class="desc">Performs calculations on numeric data.</td>
                 <td><code>SELECT col1 * col2;</code></td>
                 <td><code>SELECT (price * quantity) AS "Total Revenue"<br>FROM order_items;</code></td>
-                <td class="desc">Performs calculations on numeric data.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 id="ddl">Data Definition (DDL)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Command</th>
+                <th>Description</th>
+                <th>Syntax</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="sql-keyword">CREATE TABLE</td>
+                <td class="desc">Creates a new table in the database.</td>
+                <td><code>CREATE TABLE table (<br>&nbsp;&nbsp;col1 data_type,<br>&nbsp;&nbsp;col2 data_type<br>);</code></td>
+                <td><code>CREATE TABLE inventory (<br>&nbsp;&nbsp;item_id INT,<br>&nbsp;&nbsp;item_name VARCHAR(100)<br>);</code></td>
+            </tr>
+            <tr>
+                <td class="sql-keyword">ALTER TABLE</td>
+                <td class="desc">Adds, deletes, or modifies columns in an existing table.</td>
+                <td><code>ALTER TABLE table<br>ADD|DROP|ALTER COLUMN col datatype;</code></td>
+                <td><code>ALTER TABLE customers<br>ADD email_address VARCHAR(255);</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 id="dml">Data Manipulation (DML)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Command</th>
+                <th>Description</th>
+                <th>Syntax</th>
+                <th>Example</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="sql-keyword">UPDATE</td>
+                <td class="desc">Modifies existing records in a table.</td>
+                <td><code>UPDATE table<br>SET col = val<br>WHERE condition;</code></td>
+                <td><code>UPDATE products SET price = 19.99<br>WHERE sku = 'A100';</code></td>
+            </tr>
+            <tr>
+                <td class="sql-keyword">DELETE</td>
+                <td class="desc">Deletes specific rows. Caution: Omitting WHERE deletes all data.</td>
+                <td><code>DELETE FROM table<br>WHERE condition;</code></td>
+                <td><code>DELETE FROM customers<br>WHERE last_login < '2020-01-01';</code></td>
             </tr>
         </tbody>
     </table>
