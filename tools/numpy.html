@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NumPy Study Sheet</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+            background-color: #f4f7f9;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: #2c3e50;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .navbar a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95em;
+            transition: color 0.2s ease;
+        }
+        .navbar a:hover {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2c3e50;
+            border-bottom: 1px solid #3498db;
+            padding-bottom: 8px;
+            margin-top: 40px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            vertical-align: top;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+            min-width: 120px;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        code {
+            background-color: #f8f8f8;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: "Courier New", Courier, monospace;
+            color: #d63384;
+            display: block;
+            white-space: pre-wrap;
+            font-size: 0.9em;
+        }
+        .desc {
+            font-size: 0.95em;
+        }
+        .pandas-keyword {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <h1>NumPy Study Sheet</h1>
+    <p style="text-align: center;">Reference: <a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html">numpy.org/doc/stable/</a></p>
+    <p style="text-align: center; font-style: italic;">Examples updated to reflect the popular <strong>Iris Dataset</strong> (Sepal/Petal lengths & widths).</p>
+
+    <nav class="navbar">
+        <a href="#array-creation">Array Creation</a>
+        <a href="#inspecting">Inspecting Arrays</a>
+        <a href="#math-operations">Math Operations</a>
+        <a href="#indexing-slicing">Indexing & Slicing</a>
+        <a href="#filtering">Filtering (Boolean)</a>
+        <a href="#reshaping">Reshaping</a>
+        <a href="#functions">Functions & Vectorization</a>
+    </nav>
+
+    <h2 id="array-creation">Array Creation</h2>
+    <table>
+        <tr>
+            <th>Keyword</th>
+            <th>Description</th>
+            <th>Syntax</th>
+            <th>Example</th>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">Import NumPy</td>
+            <td class="desc">Imports the NumPy library, usually aliased as np.</td>
+            <td><code>import numpy as np</code></td>
+            <td><code>import numpy as np</code></td>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">np.array()</td>
+            <td class="desc">Creates a NumPy array from a Python list (1D or Multi-dimensional).</td>
+            <td><code>np.array(list)</code></td>
+            <td><code># Sepal lengths for 5 flowers<br>sepal_len = np.array([5.1, 4.9, 4.7, 4.6, 5.0])</code></td>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">np.zeros()</td>
+            <td class="desc">Creates an array filled with zeros. Useful for initializing weights.</td>
+            <td><code>np.zeros(shape)</code></td>
+            <td><code># Initialize placeholders<br>zeros = np.zeros(5)</code></td>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">np.ones()</td>
+            <td class="desc">Creates an array filled with ones.</td>
+            <td><code>np.ones(shape)</code></td>
+            <td><code>ones = np.ones(5)</code></td>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">np.empty()</td>
+            <td class="desc">Creates an array without initializing entries (contains garbage values).</td>
+            <td><code>np.empty(shape)</code></td>
+            <td><code>empty = np.empty(3)</code></td>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">np.arange()</td>
+            <td class="desc">Creates an array with a sequence of numbers (start, stop, step).</td>
+            <td><code>np.arange(start, stop, step)</code></td>
+            <td><code># Create index IDs 0, 2, 4, 6, 8<br>ids = np.arange(0, 10, 2)</code></td>
+        </tr>
+    </table>
+
+    <h2 id="inspecting">Inspecting Arrays</h2>
+    <table>
+        <tr>
+            <th>Keyword</th>
+            <th>Description</th>
+            <th>Syntax</th>
+            <th>Example</th>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">shape</td>
+            <td class="desc">Returns a tuple representing the dimensions of the array (rows, cols).</td>
+            <td><code>arr.shape</code></td>
+            <td><code># (150, 4) for 150 flowers, 4 features<br>print(data.shape)</code></td>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">ndim</td>
+            <td class="desc">Returns the number of dimensions (axes).</td>
+            <td><code>arr.ndim</code></td>
+            <td><code>print(data.ndim) # 2</code></td>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">size</td>
+            <td class="desc">Returns the total number of elements in the array.</td>
+            <td><code>arr.size</code></td>
+            <td><code>print(data.size) # 600 </code></td>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">dtype</td>
+            <td class="desc">Returns the data type of the elements (e.g., float64, int32).</td>
+            <td><code>arr.dtype</code></td>
+            <td><code>print(data.dtype) # float64 </code></td>
+        </tr>
+    </table>
+
+    <h2 id="math-operations">Basic Array Operations</h2>
+    <table>
+        <tr>
+            <th>Keyword</th>
+            <th>Description</th>
+            <th>Syntax</th>
+            <th>Example</th>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">Arithmetic (+ - * /)</td>
+            <td class="desc">Performs element-wise addition, subtraction, multiplication, and division.</td>
+            <td><code>arr1 + arr2</code></td>
+            <td><code># Convert cm to mm<br>sepal_mm = sepal_cm * 10</code></td>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">np.dot()</td>
+            <td class="desc">Calculates the dot product of two arrays (matrix multiplication).</td>
+            <td><code>np.dot(a, b)</code></td>
+            <td><code># Weighted sum of features<br>score = np.dot(features, weights)</code></td>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">np.sqrt()</td>
+            <td class="desc">Computes the square root of each element.</td>
+            <td><code>np.sqrt(arr)</code></td>
+            <td><code>variance = np.array([0.25, 0.16])<br>std_dev = np.sqrt(variance)</code></td>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">Trig Functions</td>
+            <td class="desc">Sine, Cosine, etc. (Inputs should often be in radians).</td>
+            <td><code>np.sin(arr)</code></td>
+            <td><code>np.sin(np.radians(angles))</code></td>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">Aggregation</td>
+            <td class="desc">Sum, min, max, mean of array elements.</td>
+            <td><code>arr.sum(), arr.mean()</code></td>
+            <td><code>total_len = sepal_len.sum()<br>avg_len = sepal_len.mean()</code></td>
+        </tr>
+    </table>
+
+    <h2 id="indexing-slicing">Indexing and Slicing</h2>
+    <table>
+        <tr>
+            <th>Keyword</th>
+            <th>Description</th>
+            <th>Syntax</th>
+            <th>Example</th>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">1D Indexing</td>
+            <td class="desc">Access specific element by integer index (0-based).</td>
+            <td><code>arr[i]</code></td>
+            <td><code># First flower's length<br>print(sepal_len[0])</code></td>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">1D Slicing</td>
+            <td class="desc">Access a subset of the array [start:stop:step].</td>
+            <td><code>arr[start:stop]</code></td>
+            <td><code># First 3 flowers<br>print(sepal_len[0:3])</code></td>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">2D Indexing</td>
+            <td class="desc">Access element at [row, column].</td>
+            <td><code>arr[row, col]</code></td>
+            <td><code># 2nd flower (row 1), 1st feature (col 0)<br>val = iris_data[1, 0]</code></td>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">2D Slicing</td>
+            <td class="desc">Slice rows and columns simultaneously.</td>
+            <td><code>arr[r_start:r_end, c_start:c_end]</code></td>
+            <td><code># First 2 flowers, first 2 features<br>subset = iris_data[:2, :2]</code></td>
+        </tr>
+    </table>
+
+    <h2 id="filtering">Filtering (Boolean Indexing)</h2>
+    <table>
+        <tr>
+            <th>Keyword</th>
+            <th>Description</th>
+            <th>Syntax</th>
+            <th>Example</th>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">Boolean Masking</td>
+            <td class="desc">Select elements that satisfy a condition.</td>
+            <td><code>arr[condition]</code></td>
+            <td><code># Select sepal lengths > 5.0<br>long_sepals = sepal_len[sepal_len > 5.0]</code></td>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">& (AND)</td>
+            <td class="desc">Combine conditions: Both must be true.</td>
+            <td><code>arr[(cond1) & (cond2)]</code></td>
+            <td><code># Length > 5 AND Width < 3<br>filter = sepal_len[(sepal_len > 5) & (sepal_width < 3)]</code></td>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">| (OR)</td>
+            <td class="desc">Combine conditions: At least one must be true.</td>
+            <td><code>arr[(cond1) | (cond2)]</code></td>
+            <td><code># Length > 6 OR Width > 4<br>filter = sepal_len[(sepal_len > 6) | (sepal_width > 4)]</code></td>
+        </tr>
+    </table>
+
+    <h2 id="reshaping">Reshaping Arrays</h2>
+    <table>
+        <tr>
+            <th>Keyword</th>
+            <th>Description</th>
+            <th>Syntax</th>
+            <th>Example</th>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">reshape()</td>
+            <td class="desc">Changes the shape of an array without changing its data. Total elements must remain constant.</td>
+            <td><code>arr.reshape(rows, cols)</code></td>
+            <td><code># Reshape 12 measurements into 4 flowers x 3 features<br>matrix = measurements.reshape(4, 3)</code></td>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">Flattening</td>
+            <td class="desc">Converting a multi-dimensional array into a 1D array.</td>
+            <td><code>arr.reshape(-1)</code> or <code>arr.reshape(total_size)</code></td>
+            <td><code># Flatten 2D data into 1 long sequence<br>flat = matrix.reshape(12)</code></td>
+        </tr>
+    </table>
+
+    <h2 id="functions">Functions and Vectorization</h2>
+    <table>
+        <tr>
+            <th>Keyword</th>
+            <th>Description</th>
+            <th>Syntax</th>
+            <th>Example</th>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">np.vectorize()</td>
+            <td class="desc">Converts a Python function to one that applies element-wise to an array (broadcasting).</td>
+            <td><code>np.vectorize(func)</code></td>
+            <td><code>def classify(len):<br>  return "Long" if len > 5 else "Short"<br><br>v_classify = np.vectorize(classify)<br>classes = v_classify(sepal_len)</code></td>
+        </tr>
+    </table>
+
+</body>
+</html>

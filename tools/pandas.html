@@ -49,18 +49,20 @@
             color: #2c3e50;
             border-bottom: 1px solid #3498db;
             padding-bottom: 8px;
+            margin-top: 40px;
         }
         table {
             width: 100%;
             border-collapse: collapse;
             background: white;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            margin-bottom: 40px;
+            margin-bottom: 20px;
         }
         th, td {
             padding: 12px 15px;
             text-align: left;
             border-bottom: 1px solid #ddd;
+            vertical-align: top;
         }
         th {
             background-color: #3498db;
@@ -68,6 +70,7 @@
             text-transform: uppercase;
             font-size: 14px;
             letter-spacing: 1px;
+            min-width: 120px;
         }
         tr:hover {
             background-color: #f1f1f1;
@@ -80,6 +83,7 @@
             color: #d63384;
             display: block;
             white-space: pre-wrap;
+            font-size: 0.9em;
         }
         .desc {
             font-size: 0.95em;
@@ -93,24 +97,24 @@
 <body>
     <h1>Pandas Study Sheet</h1>
     <p style="text-align: center;">Reference: <a href="https://pandas.pydata.org/">https://pandas.pydata.org/</a></p>
+    <p style="text-align: center; font-style: italic;">Examples updated to reflect the popular <strong>Titanic</strong> dataset (Passengers, Survival, Age, Fare).</p>
 
     <nav class="navbar">
         <a href="#importing-creating">Importing & Creating</a>
-        <a href="#exporting">Exporting</a>
         <a href="#viewing-inspecting">Viewing & Inspecting</a>
         <a href="#selecting-indexing">Selecting & Indexing</a>
         <a href="#filtering">Filtering</a>
         <a href="#handling-missing">Handling Missing Data</a>
         <a href="#data-cleaning">Data Cleaning</a>
-        <a href="#string-operations">String Operations</a>
-        <a href="#date-time">Date & Time Handling</a>
         <a href="#manipulating">Manipulating</a>
+        <a href="#string-operations">String Operations</a>
         <a href="#applying-functions">Applying Functions</a>
         <a href="#statistical">Statistical Operations</a>
         <a href="#grouping-aggregating">Grouping & Aggregating</a>
         <a href="#merging-concatenating">Merging & Concatenating</a>
         <a href="#reshaping">Reshaping</a>
-        <a href="#time-series">Time Series Operations</a>
+        <a href="#time-series">Time Series</a>
+        <a href="#exporting">Exporting</a>
     </nav>
 
     <h2 id="importing-creating">Importing and Creating Data</h2>
@@ -123,49 +127,33 @@
         </tr>
         <tr>
             <td class="pandas-keyword">Import Pandas</td>
-            <td class="desc">Imports the Pandas library for data manipulation.</td>
+            <td class="desc">Imports the Pandas library.</td>
             <td><code>import pandas as pd</code></td>
-            <td><code>import pandas as pd  # Pandas successfully imported</code></td>
+            <td><code>import pandas as pd</code></td>
         </tr>
         <tr>
             <td class="pandas-keyword">DataFrame</td>
-            <td class="desc">Creates a two-dimensional tabular data structure.</td>
-            <td><code>pd.DataFrame(data, columns=[...])</code></td>
-            <td><code>import pandas as pd<br>data_dict = {'City': ['New York', 'Los Angeles', 'Chicago'], 'Population': [8419000, 3893000, 2716000]}<br>df = pd.DataFrame(data_dict)<br>print(df)</code></td>
+            <td class="desc">Creates a tabular data structure from a list or dictionary.</td>
+            <td><code>pd.DataFrame(data)</code></td>
+            <td><code>data = {'Name': ['Braund, Mr. Owen Harris', 'Heikkinen, Miss. Laina'], 'Age': [22, 26], 'Survived': [0, 1]}<br>df = pd.DataFrame(data)<br>print(df)</code></td>
         </tr>
         <tr>
             <td class="pandas-keyword">Series</td>
             <td class="desc">Creates a one-dimensional labeled array.</td>
             <td><code>pd.Series(data)</code></td>
-            <td><code>import pandas as pd<br>cities = ['New York', 'Los Angeles', 'Chicago']<br>series = pd.Series(cities)<br>print(series)</code></td>
+            <td><code>ages = pd.Series([22, 38, 26, 35])<br>print(ages)</code></td>
         </tr>
         <tr>
             <td class="pandas-keyword">read_csv()</td>
-            <td class="desc">Reads a comma-separated values (CSV) file into a DataFrame.</td>
-            <td><code>pd.read_csv(filepath_or_buffer)</code></td>
-            <td><code>import pandas as pd<br># Assuming 'cities.csv' contains city data<br>df = pd.read_csv('cities.csv')<br>print(df.head())</code></td>
+            <td class="desc">Reads a CSV file into a DataFrame.</td>
+            <td><code>pd.read_csv(path)</code></td>
+            <td><code>df = pd.read_csv('titanic.csv')<br>print(df.head())</code></td>
         </tr>
         <tr>
             <td class="pandas-keyword">read_excel()</td>
             <td class="desc">Reads an Excel file into a DataFrame.</td>
-            <td><code>pd.read_excel(io, sheet_name=0)</code></td>
-            <td><code>import pandas as pd<br># Assuming 'cities.xlsx' contains city data<br>df = pd.read_excel('cities.xlsx')<br>print(df.head())</code></td>
-        </tr>
-    </table>
-
-    <h2 id="exporting">Exporting Data</h2>
-    <table>
-        <tr>
-            <th>Keyword</th>
-            <th>Description</th>
-            <th>Syntax</th>
-            <th>Example</th>
-        </tr>
-        <tr>
-            <td class="pandas-keyword">to_csv()</td>
-            <td class="desc">Saves your DataFrame to a CSV file. Use index=False to avoid saving the row numbers as a new column.</td>
-            <td><code>df.to_csv('filename.csv', index=False)</code></td>
-            <td><code>import pandas as pd<br>data = {'City': ['New York', 'Los Angeles']}<br>df = pd.DataFrame(data)<br>df.to_csv('cleaned_city_data.csv', index=False)</code></td>
+            <td><code>pd.read_excel(path)</code></td>
+            <td><code>df = pd.read_excel('titanic.xlsx', sheet_name='passengers')</code></td>
         </tr>
     </table>
 
@@ -179,51 +167,51 @@
         </tr>
         <tr>
             <td class="pandas-keyword">head()</td>
-            <td class="desc">Returns the first n rows of the DataFrame.</td>
+            <td class="desc">Returns the first <i>n</i> rows.</td>
             <td><code>df.head(n=5)</code></td>
-            <td><code>import pandas as pd<br>data = {'City': ['New York', 'Los Angeles', 'Chicago'], 'Population': [8419000, 3893000, 2716000]}<br>df = pd.DataFrame(data)<br>print(df.head())</code></td>
+            <td><code>print(df.head(3))<br># Shows first 3 passengers</code></td>
         </tr>
         <tr>
             <td class="pandas-keyword">tail()</td>
-            <td class="desc">Returns the last n rows of the DataFrame.</td>
+            <td class="desc">Returns the last <i>n</i> rows.</td>
             <td><code>df.tail(n=5)</code></td>
-            <td><code>import pandas as pd<br>data = {'City': ['New York', 'Los Angeles', 'Chicago'], 'Population': [8419000, 3893000, 2716000]}<br>df = pd.DataFrame(data)<br>print(df.tail())</code></td>
+            <td><code>print(df.tail(3))<br># Shows last 3 passengers</code></td>
         </tr>
         <tr>
             <td class="pandas-keyword">info()</td>
-            <td class="desc">Provides a concise summary of the DataFrame.</td>
+            <td class="desc">Summary of DataFrame including index, columns, non-null counts, and memory usage.</td>
             <td><code>df.info()</code></td>
-            <td><code>import pandas as pd<br>data = {'City': ['New York', 'Los Angeles', 'Chicago'], 'Population': [8419000, 3893000, 2716000]}<br>df = pd.DataFrame(data)<br>print(df.info())</code></td>
+            <td><code>df.info()<br># RangeIndex: 891 entries...<br># Data columns (total 12 columns)...</code></td>
         </tr>
         <tr>
             <td class="pandas-keyword">describe()</td>
-            <td class="desc">Generates descriptive statistics for numerical columns.</td>
+            <td class="desc">Generates descriptive statistics (mean, std, min, max) for numerical columns.</td>
             <td><code>df.describe()</code></td>
-            <td><code>import pandas as pd<br>data = {'Population': [8419000, 3893000, 2716000]}<br>df = pd.DataFrame(data)<br>print(df.describe())</code></td>
+            <td><code>print(df.describe())<br># Stats for Age, Fare, Pclass, etc.</code></td>
         </tr>
         <tr>
             <td class="pandas-keyword">shape</td>
-            <td class="desc">Returns a tuple representing the dimensionality of the DataFrame.</td>
+            <td class="desc">Returns a tuple (rows, columns).</td>
             <td><code>df.shape</code></td>
-            <td><code>import pandas as pd<br>data = {'City': ['New York', 'Los Angeles', 'Chicago']}<br>df = pd.DataFrame(data)<br>print(df.shape)  # (3, 1)</code></td>
-        </tr>
-        <tr>
-            <td class="pandas-keyword">dtypes</td>
-            <td class="desc">Returns the data types of each column.</td>
-            <td><code>df.dtypes</code></td>
-            <td><code>import pandas as pd<br>data = {'City': ['New York', 'Los Angeles'], 'Population': [8419000, 3893000]}<br>df = pd.DataFrame(data)<br>print(df.dtypes)</code></td>
-        </tr>
-        <tr>
-            <td class="pandas-keyword">sample()</td>
-            <td class="desc">Returns a random sample of n items from the DataFrame.</td>
-            <td><code>df.sample(n=1)</code></td>
-            <td><code>import pandas as pd<br>data = {'City': ['New York', 'Los Angeles', 'Chicago']}<br>df = pd.DataFrame(data)<br>print(df.sample(n=2))</code></td>
+            <td><code>print(df.shape)<br># (891, 12)</code></td>
         </tr>
         <tr>
             <td class="pandas-keyword">columns</td>
-            <td class="desc">Returns the names of all columns. Extremely useful when you have a massive dataset and forgot the exact spelling of a header.</td>
+            <td class="desc">Returns the column labels.</td>
             <td><code>df.columns</code></td>
-            <td><code>import pandas as pd<br>data = {'City': ['New York'], 'Population': [8419000]}<br>df = pd.DataFrame(data)<br>print(df.columns.tolist())</code></td>
+            <td><code>print(df.columns.tolist())<br># ['PassengerId', 'Survived', 'Pclass', 'Name'...]</code></td>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">index</td>
+            <td class="desc">Returns the index (row labels) of the DataFrame.</td>
+            <td><code>df.index</code></td>
+            <td><code>print(df.index)<br># RangeIndex(start=0, stop=891, step=1)</code></td>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">dtypes</td>
+            <td class="desc">Returns data types of each column.</td>
+            <td><code>df.dtypes</code></td>
+            <td><code>print(df.dtypes)<br># Age: float64, Name: object</code></td>
         </tr>
     </table>
 
@@ -237,27 +225,27 @@
         </tr>
         <tr>
             <td class="pandas-keyword">loc[]</td>
-            <td class="desc">Accesses a group of rows and columns by labels.</td>
+            <td class="desc">Access rows/columns by <strong>label</strong> or boolean array.</td>
             <td><code>df.loc[labels]</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'Population': [8419000, 3893000]}, index=['New York', 'Los Angeles'])<br>print(df.loc['New York'])</code></td>
+            <td><code># Select Name and Age for index 5 to 10<br>print(df.loc[5:10, ['Name', 'Age']])</code></td>
         </tr>
         <tr>
             <td class="pandas-keyword">iloc[]</td>
-            <td class="desc">Accesses a group of rows and columns by integer positions.</td>
+            <td class="desc">Access rows/columns by <strong>integer position</strong>.</td>
             <td><code>df.iloc[positions]</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'City': ['New York', 'Los Angeles']})<br>print(df.iloc[0])</code></td>
+            <td><code># Select first 5 rows and first 3 columns<br>print(df.iloc[:5, :3])</code></td>
         </tr>
         <tr>
             <td class="pandas-keyword">set_index()</td>
-            <td class="desc">Sets the DataFrame index using existing columns.</td>
-            <td><code>df.set_index(keys, inplace=False)</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'City': ['New York', 'Los Angeles'], 'Population': [8419000, 3893000]})<br>df.set_index('City', inplace=True)<br>print(df)</code></td>
+            <td class="desc">Sets a column as the index.</td>
+            <td><code>df.set_index(keys)</code></td>
+            <td><code>df.set_index('PassengerId', inplace=True)<br># Rows now accessed by PassengerId</code></td>
         </tr>
         <tr>
             <td class="pandas-keyword">reset_index()</td>
-            <td class="desc">Resets the index to the default integer index.</td>
-            <td><code>df.reset_index(inplace=False)</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'Population': [8419000, 3893000]}, index=['New York', 'Los Angeles'])<br>df.reset_index(inplace=True)<br>print(df)</code></td>
+            <td class="desc">Resets the index to default integer index.</td>
+            <td><code>df.reset_index()</code></td>
+            <td><code>df.reset_index(inplace=True)</code></td>
         </tr>
     </table>
 
@@ -270,22 +258,22 @@
             <th>Example</th>
         </tr>
         <tr>
-            <td class="pandas-keyword">Boolean Operators</td>
-            <td class="desc">Combines multiple conditions for filtering.</td>
-            <td><code>(condition1) & (condition2), |, ~</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'Population': [8419000, 3893000, 2716000]})<br>filtered = df[(df['Population'] > 3000000) & (df['Population'] < 8000000)]<br>print(filtered)</code></td>
+            <td class="pandas-keyword">Boolean Indexing</td>
+            <td class="desc">Filter data using conditions (& for AND, | for OR, ~ for NOT).</td>
+            <td><code>df[condition]</code></td>
+            <td><code># Women over 30 who survived<br>survivors = df[(df['Sex'] == 'female') & (df['Age'] > 30) & (df['Survived'] == 1)]</code></td>
         </tr>
         <tr>
             <td class="pandas-keyword">isin()</td>
-            <td class="desc">Checks whether each element is contained in values.</td>
-            <td><code>series.isin(values)</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'City': ['New York', 'Los Angeles', 'Chicago']})<br>filtered = df[df['City'].isin(['New York', 'Chicago'])]<br>print(filtered)</code></td>
+            <td class="desc">Filter rows where column value is present in a list.</td>
+            <td><code>df[col.isin(list)]</code></td>
+            <td><code># Passengers in 1st or 2nd class<br>premium = df[df['Pclass'].isin([1, 2])]</code></td>
         </tr>
         <tr>
             <td class="pandas-keyword">query()</td>
-            <td class="desc">Queries the DataFrame with a boolean expression.</td>
+            <td class="desc">Filter using a query string expression.</td>
             <td><code>df.query(expr)</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'Population': [8419000, 3893000]})<br>filtered = df.query('Population > 4000000')<br>print(filtered)</code></td>
+            <td><code># Passengers with Fare > 100<br>rich = df.query('Fare > 100 and Survived == 1')</code></td>
         </tr>
     </table>
 
@@ -299,21 +287,21 @@
         </tr>
         <tr>
             <td class="pandas-keyword">isna()</td>
-            <td class="desc">Detects missing values.</td>
-            <td><code>df.isna()</code></td>
-            <td><code>import pandas as pd<br>import numpy as np<br>df = pd.DataFrame({'A': [1, np.nan, 3]})<br>print(df.isna())</code></td>
+            <td class="desc">Detects missing values (NaN).</td>
+            <td><code>df.isna().sum()</code></td>
+            <td><code>print(df.isna().sum())<br># Age: 177, Cabin: 687, Embarked: 2</code></td>
         </tr>
         <tr>
             <td class="pandas-keyword">dropna()</td>
-            <td class="desc">Removes missing values.</td>
-            <td><code>df.dropna(axis=0, inplace=False)</code></td>
-            <td><code>import pandas as pd<br>import numpy as np<br>df = pd.DataFrame({'A': [1, np.nan, 3]})<br>df.dropna(inplace=True)<br>print(df)</code></td>
+            <td class="desc">Removes rows (or columns) with missing values.</td>
+            <td><code>df.dropna()</code></td>
+            <td><code># Drop rows where 'Age' is missing<br>df_clean = df.dropna(subset=['Age'])</code></td>
         </tr>
         <tr>
             <td class="pandas-keyword">fillna()</td>
-            <td class="desc">Fills missing values with a specified value.</td>
-            <td><code>df.fillna(value, inplace=False)</code></td>
-            <td><code>import pandas as pd<br>import numpy as np<br>df = pd.DataFrame({'A': [1, np.nan, 3]})<br>df.fillna(0, inplace=True)<br>print(df)</code></td>
+            <td class="desc">Fills missing values with a specified value or strategy.</td>
+            <td><code>df.fillna(value)</code></td>
+            <td><code># Fill missing Age with mean Age<br>df['Age'].fillna(df['Age'].mean(), inplace=True)</code></td>
         </tr>
     </table>
 
@@ -327,15 +315,55 @@
         </tr>
         <tr>
             <td class="pandas-keyword">unique() / nunique()</td>
-            <td class="desc">unique() returns an array of all unique values; nunique() returns the count of unique values.</td>
-            <td><code>df['column'].unique() / df['column'].nunique()</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'City': ['New York', 'Los Angeles', 'New York']})<br>print(df['City'].unique())<br>print(df['City'].nunique())  # 2</code></td>
+            <td class="desc">Get unique values or the count of unique values.</td>
+            <td><code>df[col].unique()</code></td>
+            <td><code>print(df['Embarked'].unique())<br># ['S', 'C', 'Q', nan]<br>print(df['Pclass'].nunique()) # 3</code></td>
         </tr>
         <tr>
             <td class="pandas-keyword">drop_duplicates()</td>
-            <td class="desc">Removes rows that are exactly the same across all columns.</td>
-            <td><code>df.drop_duplicates(inplace=True)</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'City': ['New York', 'New York'], 'Population': [8419000, 8419000]})<br>df.drop_duplicates(subset=['City'], keep='first', inplace=True)<br>print(df)</code></td>
+            <td class="desc">Removes duplicate rows.</td>
+            <td><code>df.drop_duplicates()</code></td>
+            <td><code>df.drop_duplicates(subset=['Ticket'], keep='first', inplace=True)</code></td>
+        </tr>
+    </table>
+
+    <h2 id="manipulating">Manipulating Data</h2>
+    <table>
+        <tr>
+            <th>Keyword</th>
+            <th>Description</th>
+            <th>Syntax</th>
+            <th>Example</th>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">Adding Columns</td>
+            <td class="desc">Create a new column by assigning a value or calculation to a new key.</td>
+            <td><code>df['New'] = val</code></td>
+            <td><code># Create 'FamilySize' from SibSp + Parch<br>df['FamilySize'] = df['SibSp'] + df['Parch'] + 1</code></td>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">rename()</td>
+            <td class="desc">Renames columns or index labels.</td>
+            <td><code>df.rename(columns={...})</code></td>
+            <td><code>df.rename(columns={'Pclass': 'PassengerClass'}, inplace=True)</code></td>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">drop()</td>
+            <td class="desc">Removes specified rows or columns.</td>
+            <td><code>df.drop(labels, axis)</code></td>
+            <td><code># Drop the 'Cabin' column<br>df.drop('Cabin', axis=1, inplace=True)</code></td>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">sort_values()</td>
+            <td class="desc">Sorts by values along an axis.</td>
+            <td><code>df.sort_values(by)</code></td>
+            <td><code># Sort by Class (asc) then Fare (desc)<br>df.sort_values(by=['Pclass', 'Fare'], ascending=[True, False], inplace=True)</code></td>
+        </tr>
+        <tr>
+            <td class="pandas-keyword">astype()</td>
+            <td class="desc">Casts a pandas object to a specified dtype.</td>
+            <td><code>df.astype(dtype)</code></td>
+            <td><code># Convert Survived to boolean<br>df['Survived'] = df['Survived'].astype(bool)</code></td>
         </tr>
     </table>
 
@@ -349,77 +377,21 @@
         </tr>
         <tr>
             <td class="pandas-keyword">str.contains()</td>
-            <td class="desc">Filters rows based on whether a string contains a specific substring.</td>
-            <td><code>df[df['col'].str.contains('text')]</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'City': ['New York', 'Los Angeles', 'Chicago']})<br>big_cities = df[df['City'].str.contains('New')]<br>print(big_cities)</code></td>
+            <td class="desc">Tests if pattern or regex is contained in string.</td>
+            <td><code>df[col].str.contains()</code></td>
+            <td><code># Find all 'Mr.' titles<br>misters = df[df['Name'].str.contains('Mr\.')]</code></td>
         </tr>
         <tr>
-            <td class="pandas-keyword">str.upper() / str.lower()</td>
-            <td class="desc">Mass-transforms the casing of an entire column of text.</td>
-            <td><code>df['col'].str.upper()</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'City': ['new york', 'los angeles']})<br>df['City'] = df['City'].str.upper()<br>print(df)</code></td>
+            <td class="pandas-keyword">str.lower() / str.upper()</td>
+            <td class="desc">Converts strings to lowercase or uppercase.</td>
+            <td><code>df[col].str.upper()</code></td>
+            <td><code>df['Name'] = df['Name'].str.upper()</code></td>
         </tr>
-    </table>
-
-    <h2 id="date-time">Date and Time Handling</h2>
-    <table>
-        <tr>
-            <th>Keyword</th>
-            <th>Description</th>
-            <th>Syntax</th>
-            <th>Example</th>
-        </tr>
-        <tr>
-            <td class="pandas-keyword">to_datetime()</td>
-            <td class="desc">Converts strings (like "2023-01-01") into actual Python datetime objects so you can sort by time or extract months/years.</td>
-            <td><code>pd.to_datetime(df['date_column'])</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'Founded_Date': ['1624-01-01', '1781-09-04', '1837-03-04']})<br>df['Founded'] = pd.to_datetime(df['Founded_Date'])<br>print(df)</code></td>
-        </tr>
-        <tr>
-            <td class="pandas-keyword">date_range()</td>
-            <td class="desc">Generates a fixed-frequency DatetimeIndex.</td>
-            <td><code>pd.date_range(start, end, freq='D')</code></td>
-            <td><code>import pandas as pd<br>dates = pd.date_range(start='2023-01-01', end='2023-01-05', freq='D')<br>print(dates)</code></td>
-        </tr>
-    </table>
-
-    <h2 id="manipulating">Manipulating Data</h2>
-    <table>
-        <tr>
-            <th>Keyword</th>
-            <th>Description</th>
-            <th>Syntax</th>
-            <th>Example</th>
-        </tr>
-        <tr>
-            <td class="pandas-keyword">rename()</td>
-            <td class="desc">Renames columns or index labels.</td>
-            <td><code>df.rename(columns={...}, inplace=False)</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'Pop': [8419000, 3893000]})<br>df.rename(columns={'Pop': 'Population'}, inplace=True)<br>print(df)</code></td>
-        </tr>
-        <tr>
-            <td class="pandas-keyword">drop()</td>
-            <td class="desc">Removes specified labels from rows or columns.</td>
-            <td><code>df.drop(labels, axis=0, inplace=False)</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'City': ['New York', 'Los Angeles'], 'Population': [8419000, 3893000]})<br>df.drop('City', axis=1, inplace=True)<br>print(df)</code></td>
-        </tr>
-        <tr>
-            <td class="pandas-keyword">sort_values()</td>
-            <td class="desc">Sorts by the values along an axis.</td>
-            <td><code>df.sort_values(by, ascending=True)</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'Population': [8419000, 3893000, 2716000]})<br>sorted_df = df.sort_values('Population', ascending=False)<br>print(sorted_df)</code></td>
-        </tr>
-        <tr>
-            <td class="pandas-keyword">inplace</td>
-            <td class="desc">Modifies the object in place for many methods.</td>
-            <td><code>inplace=True</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'A': [1, 2]})<br>df.drop('A', axis=1, inplace=True)<br>print(df)</code></td>
-        </tr>
-        <tr>
-            <td class="pandas-keyword">astype()</td>
-            <td class="desc">Casts a pandas object to a specified dtype.</td>
-            <td><code>df.astype(dtype)</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'A': [1.0, 2.0]})<br>df = df.astype(int)<br>print(df)</code></td>
+         <tr>
+            <td class="pandas-keyword">str.split()</td>
+            <td class="desc">Splits string on delimiter.</td>
+            <td><code>df[col].str.split()</code></td>
+            <td><code># Extract Last Name (before comma)<br>df['LastName'] = df['Name'].str.split(',').str[0]</code></td>
         </tr>
     </table>
 
@@ -434,20 +406,20 @@
         <tr>
             <td class="pandas-keyword">apply()</td>
             <td class="desc">Applies a function along an axis of the DataFrame.</td>
-            <td><code>df.apply(func, axis=0)</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'A': [1, 2], 'B': [3, 4]})<br>print(df.apply(lambda x: x.max() - x.min()))</code></td>
+            <td><code>df.apply(func)</code></td>
+            <td><code># Define function to categorize Age<br>def categorize(age):<br>    return 'Child' if age < 18 else 'Adult'<br>df['AgeGroup'] = df['Age'].apply(categorize)</code></td>
         </tr>
         <tr>
             <td class="pandas-keyword">map()</td>
-            <td class="desc">Maps values of Series according to input correspondence.</td>
-            <td><code>series.map(arg)</code></td>
-            <td><code>import pandas as pd<br>s = pd.Series(['cat', 'dog', 'bird'])<br>print(s.map({'cat': 'kitten', 'dog': 'puppy'}))</code></td>
+            <td class="desc">Maps values of Series using a dictionary.</td>
+            <td><code>series.map(dict)</code></td>
+            <td><code># Map 'male' to 0, 'female' to 1<br>df['SexCode'] = df['Sex'].map({'male': 0, 'female': 1})</code></td>
         </tr>
         <tr>
             <td class="pandas-keyword">applymap()</td>
-            <td class="desc">Applies a function to every element of the DataFrame.</td>
+            <td class="desc">Applies a function to every element of the DataFrame (element-wise).</td>
             <td><code>df.applymap(func)</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame([[1, 2], [3, 4]])<br>print(df.applymap(lambda x: x**2))</code></td>
+            <td><code># Convert all elements in numeric df to float<br>df_num = df[['Age', 'Fare']].applymap(float)</code></td>
         </tr>
     </table>
 
@@ -460,58 +432,34 @@
             <th>Example</th>
         </tr>
         <tr>
-            <td class="pandas-keyword">mean()</td>
-            <td class="desc">Returns the mean of the values over the requested axis.</td>
-            <td><code>df.mean(axis=0)</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'A': [1, 2, 3]})<br>print(df.mean())</code></td>
+            <td class="pandas-keyword">mean() / median() / mode()</td>
+            <td class="desc">Central tendency measures.</td>
+            <td><code>df.mean()</code></td>
+            <td><code>avg_fare = df['Fare'].mean()<br>median_age = df['Age'].median()</code></td>
         </tr>
         <tr>
-            <td class="pandas-keyword">median()</td>
-            <td class="desc">Returns the median of the values over the requested axis.</td>
-            <td><code>df.median(axis=0)</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'A': [1, 2, 3]})<br>print(df.median())</code></td>
+            <td class="pandas-keyword">std() / var()</td>
+            <td class="desc">Standard deviation and variance.</td>
+            <td><code>df.std()</code></td>
+            <td><code>age_variability = df['Age'].std()</code></td>
         </tr>
         <tr>
-            <td class="pandas-keyword">mode()</td>
-            <td class="desc">Returns the mode(s) of each element along the selected axis.</td>
-            <td><code>df.mode(axis=0)</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'A': [1, 2, 2]})<br>print(df.mode())</code></td>
-        </tr>
-        <tr>
-            <td class="pandas-keyword">std()</td>
-            <td class="desc">Returns the standard deviation over the requested axis.</td>
-            <td><code>df.std(axis=0)</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'A': [1, 2, 3]})<br>print(df.std())</code></td>
-        </tr>
-        <tr>
-            <td class="pandas-keyword">var()</td>
-            <td class="desc">Returns the variance over the requested axis.</td>
-            <td><code>df.var(axis=0)</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'A': [1, 2, 3]})<br>print(df.var())</code></td>
-        </tr>
-        <tr>
-            <td class="pandas-keyword">min()</td>
-            <td class="desc">Returns the minimum of the values over the requested axis.</td>
-            <td><code>df.min(axis=0)</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'A': [1, 2, 3]})<br>print(df.min())</code></td>
-        </tr>
-        <tr>
-            <td class="pandas-keyword">max()</td>
-            <td class="desc">Returns the maximum of the values over the requested axis.</td>
-            <td><code>df.max(axis=0)</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'A': [1, 2, 3]})<br>print(df.max())</code></td>
+            <td class="pandas-keyword">min() / max()</td>
+            <td class="desc">Minimum and maximum values.</td>
+            <td><code>df.min()</code></td>
+            <td><code>youngest = df['Age'].min() # 0.42<br>oldest = df['Age'].max() # 80.0</code></td>
         </tr>
         <tr>
             <td class="pandas-keyword">quantile()</td>
-            <td class="desc">Returns values at the given quantile over requested axis.</td>
-            <td><code>df.quantile(q=0.5)</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'A': [1, 2, 3]})<br>print(df.quantile(0.5))</code></td>
+            <td class="desc">Values at given quantile (0 to 1).</td>
+            <td><code>df.quantile(q)</code></td>
+            <td><code># 75th percentile of Fare<br>high_fare = df['Fare'].quantile(0.75)</code></td>
         </tr>
-        <tr>
-            <td class="pandas-keyword">sum()</td>
-            <td class="desc">Returns the sum of the values over the requested axis.</td>
-            <td><code>df.sum(axis=0)</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'A': [1, 2, 3]})<br>print(df.sum())</code></td>
+         <tr>
+            <td class="pandas-keyword">value_counts()</td>
+            <td class="desc">Counts of unique values (frequency).</td>
+            <td><code>series.value_counts()</code></td>
+            <td><code>print(df['Pclass'].value_counts())<br># 3: 491, 1: 216, 2: 184</code></td>
         </tr>
     </table>
 
@@ -527,25 +475,19 @@
             <td class="pandas-keyword">groupby()</td>
             <td class="desc">Groups DataFrame using a mapper or by columns.</td>
             <td><code>df.groupby(by)</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'Animal': ['Dog', 'Dog', 'Cat'], 'Weight': [25, 30, 10]})<br>grouped = df.groupby('Animal')<br>print(grouped.mean())</code></td>
+            <td><code># Average survival rate by Pclass<br>print(df.groupby('Pclass')['Survived'].mean())</code></td>
         </tr>
         <tr>
             <td class="pandas-keyword">agg()</td>
             <td class="desc">Aggregates using one or more operations.</td>
             <td><code>grouped.agg(func)</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'Animal': ['Dog', 'Dog'], 'Weight': [25, 30]})<br>print(df.groupby('Animal').agg('mean'))</code></td>
-        </tr>
-        <tr>
-            <td class="pandas-keyword">value_counts()</td>
-            <td class="desc">Returns counts of unique values.</td>
-            <td><code>series.value_counts()</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'Animal': ['Dog', 'Cat', 'Dog']})<br>print(df['Animal'].value_counts())</code></td>
+            <td><code># Mean Fare and Max Age per Class<br>print(df.groupby('Pclass').agg({'Fare': 'mean', 'Age': 'max'}))</code></td>
         </tr>
         <tr>
             <td class="pandas-keyword">pivot_table()</td>
             <td class="desc">Creates a spreadsheet-style pivot table.</td>
-            <td><code>pd.pivot_table(df, values, index, columns)</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'A': ['foo', 'bar'], 'B': ['one', 'one'], 'C': [1, 2]})<br>print(pd.pivot_table(df, values='C', index='A', columns='B', aggfunc='sum'))</code></td>
+            <td><code>pd.pivot_table()</code></td>
+            <td><code># Survival rate by Sex and Class<br>pt = pd.pivot_table(df, values='Survived', index='Sex', columns='Pclass', aggfunc='mean')</code></td>
         </tr>
     </table>
 
@@ -559,21 +501,15 @@
         </tr>
         <tr>
             <td class="pandas-keyword">concat()</td>
-            <td class="desc">Concatenates pandas objects along an axis.</td>
-            <td><code>pd.concat(objs, axis=0)</code></td>
-            <td><code>import pandas as pd<br>df1 = pd.DataFrame({'A': [1, 2]})<br>df2 = pd.DataFrame({'A': [3, 4]})<br>print(pd.concat([df1, df2]))</code></td>
+            <td class="desc">Concatenates pandas objects along an axis (stacking).</td>
+            <td><code>pd.concat(objs)</code></td>
+            <td><code># Combine train and test sets<br>combined = pd.concat([train_df, test_df], axis=0)</code></td>
         </tr>
         <tr>
             <td class="pandas-keyword">merge()</td>
-            <td class="desc">Merges DataFrames using database-style join.</td>
-            <td><code>pd.merge(left, right, how='inner', on=None)</code></td>
-            <td><code>import pandas as pd<br>left = pd.DataFrame({'key': ['K0', 'K1'], 'A': ['A0', 'A1']})<br>right = pd.DataFrame({'key': ['K0', 'K1'], 'B': ['B0', 'B1']})<br>print(pd.merge(left, right, on='key'))</code></td>
-        </tr>
-        <tr>
-            <td class="pandas-keyword">join()</td>
-            <td class="desc">Joins columns with other DataFrame on index or column.</td>
-            <td><code>left.join(right, how='left')</code></td>
-            <td><code>import pandas as pd<br>left = pd.DataFrame({'A': ['A0', 'A1']}, index=['K0', 'K1'])<br>right = pd.DataFrame({'B': ['B0', 'B1']}, index=['K0', 'K1'])<br>print(left.join(right))</code></td>
+            <td class="desc">Merges DataFrames (SQL-style join).</td>
+            <td><code>pd.merge(left, right)</code></td>
+            <td><code># Merge passenger data with ticket details<br>full_data = pd.merge(df_passengers, df_tickets, on='TicketId', how='left')</code></td>
         </tr>
     </table>
 
@@ -587,15 +523,15 @@
         </tr>
         <tr>
             <td class="pandas-keyword">melt()</td>
-            <td class="desc">"Unpivots" a DataFrame from wide format to long format (useful for visualization libraries).</td>
-            <td><code>pd.melt(df, id_vars=['col'])</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'City': ['New York', 'Los Angeles'], 'Population': [8419000, 3893000]})<br>long_df = pd.melt(df, id_vars=['City'], value_vars=['Population'])<br>print(long_df)</code></td>
+            <td class="desc">Unpivots DataFrame from wide to long format.</td>
+            <td><code>pd.melt(df)</code></td>
+            <td><code># Useful for plotting<br>long_df = pd.melt(df, id_vars=['PassengerId'], value_vars=['Age', 'Fare'])</code></td>
         </tr>
         <tr>
             <td class="pandas-keyword">pivot()</td>
             <td class="desc">Reshapes data from long to wide format.</td>
-            <td><code>df.pivot(index, columns, values)</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'date': ['2023-01-01', '2023-01-02'], 'city': ['New York', 'New York'], 'temp': [32, 34]})<br>pivoted = df.pivot(index='date', columns='city', values='temp')<br>print(pivoted)</code></td>
+            <td><code>df.pivot()</code></td>
+            <td><code># Reshape back to wide<br>wide = long_df.pivot(index='PassengerId', columns='variable', values='value')</code></td>
         </tr>
     </table>
 
@@ -608,28 +544,44 @@
             <th>Example</th>
         </tr>
         <tr>
+            <td class="pandas-keyword">to_datetime()</td>
+            <td class="desc">Converts argument to datetime.</td>
+            <td><code>pd.to_datetime(col)</code></td>
+            <td><code># Assuming we have a date column<br>df['Date'] = pd.to_datetime(df['DateStr'])</code></td>
+        </tr>
+        <tr>
             <td class="pandas-keyword">resample()</td>
-            <td class="desc">Resamples time-series data to a different frequency (e.g., daily to monthly).</td>
-            <td><code>df.resample(rule).agg(func)</code></td>
-            <td><code>import pandas as pd<br>import numpy as np<br>rng = pd.date_range('2023-01-01', periods=10, freq='D')<br>df = pd.DataFrame({'value': np.arange(10)}, index=rng)<br>monthly = df.resample('M').mean()<br>print(monthly)</code></td>
+            <td class="desc">Frequency conversion (e.g., daily to monthly).</td>
+            <td><code>df.resample(freq)</code></td>
+            <td><code># Monthly mean sales<br>monthly_sales = sales_df.resample('M').mean()</code></td>
         </tr>
         <tr>
             <td class="pandas-keyword">rolling()</td>
-            <td class="desc">Provides rolling window calculations, like moving averages.</td>
-            <td><code>df.rolling(window).mean()</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'value': [1, 2, 3, 4, 5]})<br>rolling_mean = df.rolling(window=3).mean()<br>print(rolling_mean)</code></td>
+            <td class="desc">Rolling window calculations.</td>
+            <td><code>df.rolling(window)</code></td>
+            <td><code># 7-day moving average<br>ma7 = stock_df['Price'].rolling(window=7).mean()</code></td>
         </tr>
         <tr>
             <td class="pandas-keyword">shift()</td>
-            <td class="desc">Shifts index by desired number of periods, useful for time series lag features.</td>
-            <td><code>df.shift(periods=1)</code></td>
-            <td><code>import pandas as pd<br>df = pd.DataFrame({'value': [1, 2, 3]})<br>df['lagged'] = df['value'].shift(1)<br>print(df)</code></td>
+            <td class="desc">Shifts index by desired number of periods.</td>
+            <td><code>df.shift(periods)</code></td>
+            <td><code># Compare today vs yesterday<br>df['PrevDay'] = df['Price'].shift(1)</code></td>
+        </tr>
+    </table>
+
+    <h2 id="exporting">Exporting Data</h2>
+    <table>
+        <tr>
+            <th>Keyword</th>
+            <th>Description</th>
+            <th>Syntax</th>
+            <th>Example</th>
         </tr>
         <tr>
-            <td class="pandas-keyword">asfreq()</td>
-            <td class="desc">Converts time series to specified frequency, handling missing data.</td>
-            <td><code>df.asfreq(freq)</code></td>
-            <td><code>import pandas as pd<br>import numpy as np<br>rng = pd.date_range('2023-01-01', periods=3, freq='D')<br>df = pd.DataFrame({'value': [1, 2, 3]}, index=rng)<br>hourly = df.asfreq('H')<br>print(hourly)</code></td>
+            <td class="pandas-keyword">to_csv()</td>
+            <td class="desc">Saves DataFrame to CSV.</td>
+            <td><code>df.to_csv(filename)</code></td>
+            <td><code>df.to_csv('titanic_cleaned.csv', index=False)</code></td>
         </tr>
     </table>
 
